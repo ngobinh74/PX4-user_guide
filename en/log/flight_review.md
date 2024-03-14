@@ -1,6 +1,6 @@
 # Log Analysis using Flight Review
 
-The [Flight Review](http://logs.px4.io) plots for a flight can be used to analyze general vehicle condition.
+The [Flight Review](http://logs.px4.io) plots for a flight can be used to analyze general vehicle conditions.
 
 The plots are meant to be self-explanatory, but it takes some experience to know what ranges are acceptable and what a plot should look like.
 This page explains how to interpret the plots and identify common problems.
@@ -11,9 +11,9 @@ Features that are common to many plots:
 
 - Plot background color is used to indicate flight mode during recording (where graphs depend on mode):
   ![Flight Modes](../../assets/flight_log_analysis/flight_review/flight_modes.png)
-  - **Flight mode:** Background colour on the body of the plot indicates flight mode.
+  - **Flight mode:** Background color on the body of the plot indicates flight mode.
     Hovering with the mouse over a plot shows the flight mode labels.
-  - **VTOL flight mode:** VTOL vehicles additionally show the VTOL mode as background colour in the bottom part of the plot (blue for multicopter, yellow for fixed-wing, and red for transition).
+  - **VTOL flight mode:** VTOL vehicles additionally show the VTOL mode as background color in the bottom part of the plot (blue for multicopter, yellow for fixed-wing, and red for transition).
 - Mouse scrolling on a particular plot axis zooms that axis (horizontally or vertically).
 - Mouse scrolling inside the plot zooms both axes.
 
@@ -21,9 +21,9 @@ Features that are common to many plots:
 
 ## PID Tracking Performance
 
-Depending on the flight mode, the vehicle controllers may attempt to track position, velocity, altitude or rate setpoints (the tracked setpoints depend on the mode, e.g.: in Stabilized mode there is no velocity setpoint).
+Depending on the flight mode, the vehicle controllers may attempt to track position, velocity, altitude, or rate setpoints (the tracked setpoints depend on the mode, e.g.: in Stabilized mode, there is no velocity setpoint).
 
-The **Estimated** line (red) should closely match with the **Setpoint** (green).
+The **Estimated** line (red) should closely match the **Setpoint** (green).
 If they do not, in most cases the PID gains of that controller need to be tuned.
 
 The [Multicopter PID Tuning Guide](../config_mc/pid_tuning_guide_multicopter.md) contains example plots and information about analysing tracking performance.
@@ -38,18 +38,18 @@ Vibration is one of the most common problems for multirotor vehicles.
 High vibration levels can lead to:
 - less efficient flight and reduced flight time
 - the motors can heat up
-- increased material wearout
+- increased material wear out
 - inability to tune the vehicle tightly, resulting in degraded flight performance.
 - sensor clipping
-- position estimation failures, potentially resulting in fly-aways.
+- position estimation failures, potentially resulting in flyaways.
 
 It is therefore important to keep an eye on the vibration levels and improve the setup if needed.
 
 There is a point where vibration levels are clearly too high, and generally lower vibration levels are better. 
-However there is a broad range between 'everything is ok' and 'the levels are too high'.
-This range depends on a number of factors, including vehicle size - as larger vehicles have higher inertia, allowing for more software filtering (at the same time the vibrations on larger vehicles are of lower frequency).
+However, there is a broad range between 'everything is ok' and 'the levels are too high'.
+This range depends on many factors, including vehicle size - as larger vehicles have higher inertia, allowing for more software filtering (at the same time the vibrations on larger vehicles are of lower frequency).
 
-The following paragraphs and sections provide information about what plots to use for checking vibration levels, and how to analyse them.
+The following paragraphs and sections provide information about the plots to check vibration levels and how to analyse them.
 
 :::tip
 It is worth looking at multiple charts when analyzing vibration (different charts can better highlight some issues).
@@ -61,8 +61,8 @@ It is worth looking at multiple charts when analyzing vibration (different chart
 You need to enable the high-rate logging profile ([SDLOG_PROFILE](../advanced_config/parameter_reference.md#SDLOG_PROFILE)) to see this plot.
 :::
 
-This graph shows a frequency plot for the roll, pitch and yaw axis based on the actuator controls signal (the PID output from the rate controller). 
-It helps to identify frequency peaks and configuring the software filters.
+This graph shows a frequency plot for the roll, pitch, and yaw axis based on the actuator controls signal (the PID output from the rate controller). 
+It helps to identify frequency peaks and configure the software filters.
 There should only be a single peak at the lowest end (below around 20 Hz), the rest should be low and flat.
 
 Note that the y-axis scaling is different for different vehicles, but logs from the same vehicle can be directly compared to each other.
@@ -150,10 +150,10 @@ You should not fly with such high vibration levels.
 
 ### Raw Acceleration
 
-This graph shows the raw accelerometer measurements for the x, y and z axis. 
-Ideally each line is thin and clearly shows the vehicle's accelerations.
+This graph shows the raw accelerometer measurements for the x, y, and z axis. 
+Ideally, each line is thin and clearly shows the vehicle's acceleration.
 
-As a rule of thumb if the z-axis graph is touching the x/y-axis graph during hover or slow flight, the vibration levels are too high. 
+As a rule of thumb, if the z-axis graph is touching the x/y-axis graph during hover or slow flight, the vibration levels are too high. 
 
 :::tip
 The best way to use this graph is to zoom in a bit to a part where the vehicle is hovering.
@@ -203,14 +203,14 @@ You should not fly with such high vibration levels.
 
 ### Raw High-rate IMU Data Plots
 
-For an in-depth analysis there is an option to log the raw IMU data at full rate (several kHz, depending on the IMU).
+For an in-depth analysis, there is an option to log the raw IMU data at full rate (several kHz, depending on the IMU).
 This allows inspection of much higher frequencies than with normal logging, which can help when selecting vibration mounts or configuring low-pass and notch filters appropriately.
 
 To use it, some parameters need to be changed:
 - Set [IMU_GYRO_RATEMAX](../advanced_config/parameter_reference.md#IMU_GYRO_RATEMAX) to 400.
   This ensures that the raw sensor data is more efficiently packed when sent from the sensor to the rest of the system, and reduces the log size (without reducing useful data). 
   <!-- Explanation in https://github.com/PX4/PX4-user_guide/pull/751/files#r440509688
-  Data is sent in a fixed size array that will largely empty if sent at higher rate. The "empty data" is also logged.-->
+  Data is sent in a fixed-size array that will largely empty if sent at a higher rate. The "empty data" is also logged.-->
 - Use a good SD card, as the IMU data requires a high logging bandwidth (Flight Review will show dropouts if the logging rate gets too high).
   
   :::tip
@@ -241,7 +241,7 @@ Do not forget to restore the parameters after testing.
 
 Often a source of vibration (or combination of multiple sources) cannot be identified from logs alone.
 
-In this case the vehicle should be inspected.
+In this case, the vehicle should be inspected.
 [Vibration Isolation](../assembly/vibration_isolation.md) explains some basic things you can check (and do) to reduce vibration levels.
 
 
@@ -249,9 +249,9 @@ In this case the vehicle should be inspected.
 ## Actuator Outputs
 
 The *Actuator Outputs* graph shows the signals that are sent to the individual actuators (motors/servos).
-Generally it is in the range between the minimum and maximum configured PWM values (e.g. from 1000 to 2000).
+Generally, it is in the range between the minimum and maximum configured PWM values (e.g. from 1000 to 2000).
 
-This is an example for a quadrotor where everything is OK (all of the signals are within the range, approximately overlap each other, and are not too noisy):
+This is an example of a quadrotor where everything is OK (all of the signals are within the range, approximately overlap each other, and are not too noisy):
 ![Good actuator outputs](../../assets/flight_log_analysis/flight_review/actuator_outputs_good.png)
 
 The plot can help to identify different problems:
